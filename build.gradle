@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'com.i_uf'
+version = '1.0.0'
+
+tasks.register('sourcesJar', Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier.set('sources')
+}
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            pom {
+                name.set('simple-backend')
+                description.set('web server making library')
+                licenses {
+                    license {
+                        name.set('Apache License 2.0')
+                        url.set('https://www.apache.org/licenses/LICENSE-2.0')
+                    }
+                }
+                developers {
+                    developer {
+                        id.set('i_uf')
+                        name.set('I uf')
+                        email.set('uf_developer@outlook.kr')
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
